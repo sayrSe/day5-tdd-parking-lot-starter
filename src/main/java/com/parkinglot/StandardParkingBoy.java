@@ -19,4 +19,16 @@ public class StandardParkingBoy {
                 .orElseThrow(NoAvailablePositionException::new)
                 .park(car);
     }
+
+    public Car fetch(ParkingTicket parkingTicket) {
+        return parkingLots.stream()
+                .filter(parkingLot -> isTicketInParkingLot(parkingTicket, parkingLot))
+                .findFirst()
+                .orElseThrow()
+                .fetch(parkingTicket);
+    }
+
+    private static boolean isTicketInParkingLot(ParkingTicket parkingTicket, ParkingLot parkingLot) {
+        return parkingLot.getCars().containsKey(parkingTicket);
+    }
 }

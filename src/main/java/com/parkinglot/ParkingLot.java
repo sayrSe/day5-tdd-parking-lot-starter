@@ -48,4 +48,8 @@ public class ParkingLot {
     public boolean hasAvailableCapacity() {
         return !isFull();
     }
+
+    public Map<ParkingTicket, Car> getCars() {
+        return cars;
+    }
 }
