@@ -1,6 +1,6 @@
 package com.parkinglot;
 
-import com.parkinglot.exception.NoPositionException;
+import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedTicketException;
 
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class ParkingLot {
 
     public ParkingTicket park(Car car) {
         if (isFull()) {
-            throw new NoPositionException();
+            throw new NoAvailablePositionException();
         }
         ParkingTicket parkingTicket = new ParkingTicket();
         cars.put(parkingTicket, car);
@@ -38,5 +38,14 @@ public class ParkingLot {
             throw new UnrecognizedTicketException();
         }
         return cars.remove(parkingTicket);
+    }
+
+    public int getAvailableCapacity() {
+        return capacity - cars.size();
+    }
+
+
+    public boolean hasAvailableCapacity() {
+        return !isFull();
     }
 }
