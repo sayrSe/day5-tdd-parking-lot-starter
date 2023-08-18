@@ -13,14 +13,10 @@ public class SmartParkingBoy extends StandardParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        return getParkingLotWithMoreSpace(super.getParkingLots())
+        return super.getParkingLots().stream()
+                .max(Comparator.comparing(ParkingLot::getAvailableCapacity))
                 .filter(ParkingLot::hasAvailableCapacity)
                 .orElseThrow(NoAvailablePositionException::new)
                 .park(car);
-    }
-
-    private static Optional<ParkingLot> getParkingLotWithMoreSpace(List<ParkingLot> parkingLots) {
-        return parkingLots.stream()
-                .max(Comparator.comparing(ParkingLot::getAvailableCapacity));
     }
 }
