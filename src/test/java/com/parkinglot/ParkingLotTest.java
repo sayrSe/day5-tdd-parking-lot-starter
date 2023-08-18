@@ -19,4 +19,17 @@ class ParkingLotTest {
         assertNotNull(parkingTicket);
     }
 
+    @Test
+    void should_return_car_when_fetch_given_parking_lot_with_car_parked() {
+    	// Given
+        ParkingLot parkingLot = new ParkingLot();
+        Car parkedCard = new Car();
+        ParkingTicket parkingTicket = parkingLot.park(parkedCard);
+
+    	// When
+        Car car = parkingLot.fetch(parkingTicket);
+
+    	// Then
+        assertEquals(parkedCard, car);
+    }
 }
