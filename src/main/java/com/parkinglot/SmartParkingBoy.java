@@ -4,7 +4,6 @@ import com.parkinglot.exception.NoAvailablePositionException;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 public class SmartParkingBoy extends StandardParkingBoy {
 
