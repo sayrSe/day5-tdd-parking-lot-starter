@@ -5,11 +5,12 @@ import java.util.Map;
 
 public class ParkingLot {
 
+    public static final int DEFAULT_CAPACITY = 10;
     private final Map<ParkingTicket, Car> cars = new HashMap<>();
     private final int capacity;
 
     public ParkingLot() {
-        capacity = 10;
+        capacity = DEFAULT_CAPACITY;
     }
 
     public ParkingLot(int capacity) {
@@ -17,12 +18,16 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        if (cars.size() == capacity) {
+        if (isFull()) {
             return null;
         }
         ParkingTicket parkingTicket = new ParkingTicket();
         cars.put(parkingTicket, car);
         return parkingTicket;
+    }
+
+    private boolean isFull() {
+        return cars.size() == capacity;
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
