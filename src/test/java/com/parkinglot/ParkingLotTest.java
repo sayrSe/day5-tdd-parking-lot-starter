@@ -80,4 +80,19 @@ class ParkingLotTest {
     	// Then
         assertNull(fetchedCar);
     }
+
+    @Test
+    void should_return_no_parking_ticket_when_park_given_full_parking_lot_with_1_capacity() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car();
+        Car parkedCar = new Car();
+        parkingLot.park(parkedCar);
+
+        // When
+        ParkingTicket parkingTicket = parkingLot.park(car);
+
+        // Then
+        assertNull(parkingTicket);
+    }
 }
