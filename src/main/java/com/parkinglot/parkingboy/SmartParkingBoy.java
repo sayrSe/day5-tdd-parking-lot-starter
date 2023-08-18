@@ -17,7 +17,6 @@ public class SmartParkingBoy extends StandardParkingBoy {
     public ParkingTicket park(Car car) {
         return super.getParkingLots().stream()
                 .max(Comparator.comparing(ParkingLot::getAvailableCapacity))
-                .filter(ParkingLot::hasAvailableCapacity)
                 .orElseThrow(NoAvailablePositionException::new)
                 .park(car);
     }
