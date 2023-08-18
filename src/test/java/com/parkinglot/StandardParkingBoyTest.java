@@ -1,5 +1,6 @@
 package com.parkinglot;
 
+import com.parkinglot.exception.UnrecognizedTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -65,5 +66,22 @@ class StandardParkingBoyTest {
         // Then
         assertEquals(firstParkedCar, firstFetchedCar);
         assertEquals(secondParkedCar, secondFetchedCar);
+    }
+
+    @Test
+    void should_return_unrecognizedTicketException_when_fetch_given_a_standard_parking_boy_and_two_parking_lots_and_unrecognized_ticket() {
+    	// Given
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        Car car = new Car();
+        standardParkingBoy.park(car);
+        ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
+
+        // When
+        UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () ->
+                standardParkingBoy.fetch(unrecognizedParkingTicket));
+        assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
     }
 }
