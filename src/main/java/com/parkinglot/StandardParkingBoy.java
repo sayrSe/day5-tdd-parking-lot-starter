@@ -22,13 +22,13 @@ public class StandardParkingBoy {
 
     public Car fetch(ParkingTicket parkingTicket) {
         return parkingLots.stream()
-                .filter(parkingLot -> isTicketInParkingLot(parkingTicket, parkingLot))
+                .filter(parkingLot -> isTicketForCarInParkingLot(parkingTicket, parkingLot))
                 .findFirst()
                 .orElseThrow()
                 .fetch(parkingTicket);
     }
 
-    private static boolean isTicketInParkingLot(ParkingTicket parkingTicket, ParkingLot parkingLot) {
+    private static boolean isTicketForCarInParkingLot(ParkingTicket parkingTicket, ParkingLot parkingLot) {
         return parkingLot.getTicketCarMap().containsKey(parkingTicket);
     }
 }
