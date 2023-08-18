@@ -29,6 +29,6 @@ public class StandardParkingBoy {
     }
 
     private static boolean isTicketInParkingLot(ParkingTicket parkingTicket, ParkingLot parkingLot) {
-        return parkingLot.getCars().containsKey(parkingTicket);
+        return parkingLot.getTicketCarMap().containsKey(parkingTicket);
     }
 }

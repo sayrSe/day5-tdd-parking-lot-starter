@@ -9,7 +9,7 @@ import java.util.Map;
 public class ParkingLot {
 
     public static final int DEFAULT_CAPACITY = 10;
-    private final Map<ParkingTicket, Car> cars = new HashMap<>();
+    private final Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
     private final int capacity;
 
     public ParkingLot() {
@@ -25,23 +25,23 @@ public class ParkingLot {
             throw new NoAvailablePositionException();
         }
         ParkingTicket parkingTicket = new ParkingTicket();
-        cars.put(parkingTicket, car);
+        ticketCarMap.put(parkingTicket, car);
         return parkingTicket;
     }
 
     private boolean isFull() {
-        return cars.size() == capacity;
+        return ticketCarMap.size() == capacity;
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        if (cars.get(parkingTicket) == null) {
+        if (ticketCarMap.get(parkingTicket) == null) {
             throw new UnrecognizedTicketException();
         }
-        return cars.remove(parkingTicket);
+        return ticketCarMap.remove(parkingTicket);
     }
 
     public int getAvailableCapacity() {
-        return capacity - cars.size();
+        return capacity - ticketCarMap.size();
     }
 
 
@@ -49,7 +49,7 @@ public class ParkingLot {
         return !isFull();
     }
 
-    public Map<ParkingTicket, Car> getCars() {
-        return cars;
+    public Map<ParkingTicket, Car> getTicketCarMap() {
+        return ticketCarMap;
     }
 }
