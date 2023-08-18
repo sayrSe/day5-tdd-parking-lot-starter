@@ -32,4 +32,8 @@ public class StandardParkingBoy {
     private static boolean isTicketForCarInParkingLot(ParkingTicket parkingTicket, ParkingLot parkingLot) {
         return parkingLot.getTicketCarMap().containsKey(parkingTicket);
     }
+
+    public List<ParkingLot> getParkingLots() {
+        return parkingLots;
+    }
 }
