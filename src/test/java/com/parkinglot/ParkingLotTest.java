@@ -47,5 +47,7 @@ class ParkingLotTest {
         Car secondCar = parkingLot.fetch(secondParkingTicket);
 
         // Then
+        assertEquals(firstParkedCar, firstCar);
+        assertEquals(secondParkedCar, secondCar);
     }
 }
