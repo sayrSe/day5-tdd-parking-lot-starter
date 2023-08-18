@@ -2,6 +2,7 @@ package com.parkinglot;
 
 import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedTicketException;
+import com.parkinglot.parkingboy.StandardParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
