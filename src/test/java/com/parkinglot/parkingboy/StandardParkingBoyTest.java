@@ -5,36 +5,34 @@ import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
 import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedTicketException;
-import com.parkinglot.parkingboy.StandardParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildTwoEmptyParkingLots;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StandardParkingBoyTest {
 
     @Test
     void should_park_to_first_parking_lot_when_park_given_a_standard_parking_boy_and_two_parking_lots_and_a_car() {
-    	// Given
-        ParkingLot firstParkingLot = new ParkingLot();
-        ParkingLot secondParkingLot = new ParkingLot();
-        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        // Given
+        List<ParkingLot> parkingLots = buildTwoEmptyParkingLots();
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
         Car car = new Car();
 
-    	// When
+        // When
         ParkingTicket parkingTicket = standardParkingBoy.park(car);
 
-    	// Then
+        // Then
         assertNotNull(parkingTicket);
-        assertEquals(9, firstParkingLot.getAvailableCapacity());
-        assertEquals(10, secondParkingLot.getAvailableCapacity());
+        assertEquals(9, parkingLots.get(0).getAvailableCapacity());
+        assertEquals(10, parkingLots.get(1).getAvailableCapacity());
     }
 
     @Test
     void should_park_to_second_parking_lot_when_park_given_a_standard_parking_boy_and_first_parking_lot_full_and_second_has_available_position_and_a_car() {
-    	// Given
+        // Given
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot(2);
         Car parkedCar = new Car();
@@ -43,10 +41,10 @@ class StandardParkingBoyTest {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
         Car car = new Car();
 
-    	// When
+        // When
         ParkingTicket parkingTicket = standardParkingBoy.park(car);
 
-    	// Then
+        // Then
         assertNotNull(parkingTicket);
         assertEquals(0, firstParkingLot.getAvailableCapacity());
         assertEquals(1, secondParkingLot.getAvailableCapacity());
@@ -75,11 +73,8 @@ class StandardParkingBoyTest {
 
     @Test
     void should_return_unrecognizedTicketException_when_fetch_given_a_standard_parking_boy_and_two_parking_lots_and_unrecognized_ticket() {
-    	// Given
-        ParkingLot firstParkingLot = new ParkingLot();
-        ParkingLot secondParkingLot = new ParkingLot();
-        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        // Given
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(buildTwoEmptyParkingLots());
         Car car = new Car();
         standardParkingBoy.park(car);
         ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
@@ -92,11 +87,8 @@ class StandardParkingBoyTest {
 
     @Test
     void should_return_unrecognizedTicketException_when_fetch_given_a_standard_parking_boy_and_two_parking_lots_and_used_parking_ticket() {
-    	// Given
-        ParkingLot firstParkingLot = new ParkingLot();
-        ParkingLot secondParkingLot = new ParkingLot();
-        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        // Given
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(buildTwoEmptyParkingLots());
         Car car = new Car();
         ParkingTicket usedParkingTicket = standardParkingBoy.park(car);
         standardParkingBoy.fetch(usedParkingTicket);
@@ -109,7 +101,7 @@ class StandardParkingBoyTest {
 
     @Test
     void should_return_noPositionException_when_park_given_a_standard_parking_boy_and_two_parking_lots_both_with_1_capacity() {
-    	// Given
+        // Given
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot(1);
         Car firstParkedCar = new Car();

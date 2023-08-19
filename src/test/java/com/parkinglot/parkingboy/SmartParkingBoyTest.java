@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildTwoEmptyParkingLots;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SmartParkingBoyTest {
@@ -34,9 +35,7 @@ class SmartParkingBoyTest {
     @Test
     void should_park_to_first_parking_lot_when_park_given_a_smart_parking_boy_and_two_parking_lots_with_equal_parking_space_and_a_car() {
         // Given
-        ParkingLot firstParkingLot = new ParkingLot();
-        ParkingLot secondParkingLot = new ParkingLot();
-        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        List<ParkingLot> parkingLots = buildTwoEmptyParkingLots();
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car car = new Car();
 
@@ -45,8 +44,8 @@ class SmartParkingBoyTest {
 
         // Then
         assertNotNull(parkingTicket);
-        assertEquals(9, firstParkingLot.getAvailableCapacity());
-        assertEquals(10, secondParkingLot.getAvailableCapacity());
+        assertEquals(9, parkingLots.get(0).getAvailableCapacity());
+        assertEquals(10, parkingLots.get(1).getAvailableCapacity());
     }
 
     @Test
@@ -93,10 +92,7 @@ class SmartParkingBoyTest {
     @Test
     void should_return_unrecognizedTicketException_when_fetch_given_a_smart_parking_boy_and_two_parking_lots_and_unrecognized_ticket() {
         // Given
-        ParkingLot firstParkingLot = new ParkingLot();
-        ParkingLot secondParkingLot = new ParkingLot();
-        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(buildTwoEmptyParkingLots());
         Car car = new Car();
         smartParkingBoy.park(car);
         ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
@@ -110,10 +106,7 @@ class SmartParkingBoyTest {
     @Test
     void should_return_unrecognizedTicketException_when_fetch_given_a_smart_parking_boy_and_two_parking_lots_and_used_parking_ticket() {
         // Given
-        ParkingLot firstParkingLot = new ParkingLot();
-        ParkingLot secondParkingLot = new ParkingLot();
-        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(buildTwoEmptyParkingLots());
         Car car = new Car();
         ParkingTicket usedParkingTicket = smartParkingBoy.park(car);
         smartParkingBoy.fetch(usedParkingTicket);
