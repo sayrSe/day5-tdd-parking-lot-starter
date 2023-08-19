@@ -1,5 +1,8 @@
-package com.parkinglot;
+package com.parkinglot.parkingboy;
 
+import com.parkinglot.Car;
+import com.parkinglot.ParkingLot;
+import com.parkinglot.ParkingTicket;
 import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedTicketException;
 import com.parkinglot.parkingboy.SmartParkingBoy;
