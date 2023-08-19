@@ -52,4 +52,8 @@ public class ParkingLot {
     public Map<ParkingTicket, Car> getTicketCarMap() {
         return ticketCarMap;
     }
+
+    public float getAvailablePositionRate() {
+        return (float) getAvailableCapacity() / capacity;
+    }
 }
