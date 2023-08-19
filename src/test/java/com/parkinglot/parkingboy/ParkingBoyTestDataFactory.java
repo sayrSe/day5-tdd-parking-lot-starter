@@ -13,16 +13,15 @@ public class ParkingBoyTestDataFactory {
         return List.of(firstParkingLot, secondParkingLot);
     }
 
+    public static ParkingLot buildFullParkingLot() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car();
+        parkingLot.park(car);
+        return parkingLot;
+    }
+
     public static List<ParkingLot> buildTwoFullParkingLots() {
-        ParkingLot firstParkingLot = new ParkingLot(1);
-        Car firstParkedCar = new Car();
-        firstParkingLot.park(firstParkedCar);
-
-        ParkingLot secondParkingLot = new ParkingLot(1);
-        Car secondParkedCar = new Car();
-        secondParkingLot.park(secondParkedCar);
-
-        return List.of(firstParkingLot, secondParkingLot);
+        return List.of(buildFullParkingLot(), buildFullParkingLot());
     }
 
     public static ParkingLot buildParkingLotWithThreeCapacityAndOneParkedCar() {

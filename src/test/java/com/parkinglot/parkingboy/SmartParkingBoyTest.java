@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildTwoEmptyParkingLots;
-import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildTwoFullParkingLots;
+import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SmartParkingBoyTest {
@@ -52,10 +51,8 @@ class SmartParkingBoyTest {
     @Test
     void should_park_to_second_parking_lot_when_park_given_a_smart_parking_boy_and_first_parking_lot_full_and_second_has_available_position_and_a_car() {
         // Given
-        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot firstParkingLot = buildFullParkingLot();
         ParkingLot secondParkingLot = new ParkingLot(2);
-        Car parkedCar = new Car();
-        firstParkingLot.park(parkedCar);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car car = new Car();
