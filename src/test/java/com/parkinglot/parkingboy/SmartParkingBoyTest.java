@@ -5,7 +5,6 @@ import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
 import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedTicketException;
-import com.parkinglot.parkingboy.SmartParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
