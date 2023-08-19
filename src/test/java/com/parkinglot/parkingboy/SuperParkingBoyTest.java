@@ -3,6 +3,7 @@ package com.parkinglot.parkingboy;
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
+import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedTicketException;
 import org.junit.jupiter.api.Test;
 
@@ -112,5 +113,17 @@ class SuperParkingBoyTest {
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () ->
                 superParkingBoy.fetch(usedParkingTicket));
         assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
+    }
+
+    @Test
+    void should_return_noPositionException_when_park_given_a_super_parking_boy_and_two_parking_lots_both_with_1_capacity() {
+        // Given
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(buildTwoFullParkingLots());
+        Car car = new Car();
+
+        // When
+        NoAvailablePositionException noAvailablePositionException = assertThrows(NoAvailablePositionException.class, () ->
+                superParkingBoy.park(car));
+        assertEquals("No available position.", noAvailablePositionException.getMessage());
     }
 }
