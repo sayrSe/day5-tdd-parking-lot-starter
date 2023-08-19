@@ -52,11 +52,11 @@ class SuperParkingBoyTest {
         ParkingLot firstParkingLot = buildFullParkingLot();
         ParkingLot secondParkingLot = new ParkingLot();
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
         Car car = new Car();
 
         // When
-        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+        ParkingTicket parkingTicket = superParkingBoy.park(car);
 
         // Then
         assertNotNull(parkingTicket);
