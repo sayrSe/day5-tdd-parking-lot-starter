@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildTwoEmptyParkingLots;
+import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildTwoFullParkingLots;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SmartParkingBoyTest {
@@ -120,14 +121,7 @@ class SmartParkingBoyTest {
     @Test
     void should_return_noPositionException_when_park_given_a_smart_parking_boy_and_two_parking_lots_both_with_1_capacity() {
         // Given
-        ParkingLot firstParkingLot = new ParkingLot(1);
-        ParkingLot secondParkingLot = new ParkingLot(1);
-        Car firstParkedCar = new Car();
-        firstParkingLot.park(firstParkedCar);
-        Car secondParkedCar = new Car();
-        secondParkingLot.park(secondParkedCar);
-        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(buildTwoFullParkingLots());
         Car car = new Car();
 
         // When
