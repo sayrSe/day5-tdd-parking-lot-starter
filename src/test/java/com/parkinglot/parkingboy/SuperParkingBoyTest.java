@@ -45,4 +45,22 @@ class SuperParkingBoyTest {
         assertEquals(9, parkingLots.get(0).getAvailableCapacity());
         assertEquals(10, parkingLots.get(1).getAvailableCapacity());
     }
+
+    @Test
+    void should_park_to_second_parking_lot_when_park_given_a_smart_parking_boy_and_first_parking_lot_full_and_second_has_available_position_and_a_car() {
+        // Given
+        ParkingLot firstParkingLot = buildFullParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        Car car = new Car();
+
+        // When
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+
+        // Then
+        assertNotNull(parkingTicket);
+        assertEquals(0, firstParkingLot.getAvailableCapacity());
+        assertEquals(9, secondParkingLot.getAvailableCapacity());
+    }
 }
