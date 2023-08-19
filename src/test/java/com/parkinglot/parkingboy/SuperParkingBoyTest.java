@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildParkingLotWithFiveCapacityAndTwoParkedCar;
+import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildParkingLotWithThreeCapacityAndOneParkedCar;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SuperParkingBoyTest {
@@ -14,15 +16,8 @@ class SuperParkingBoyTest {
     @Test
     void should_park_to_parking_lot_with_more_parking_space_when_park_given_a_smart_parking_boy_and_two_parking_lots_with_one_have_larger_available_position_rate() {
         // Given
-        ParkingLot parkingLotWithLargerPosRate = new ParkingLot(3);
-        Car firstParkedCar = new Car();
-        parkingLotWithLargerPosRate.park(firstParkedCar);
-        ParkingLot parkingLotWithSmallerPosRate = new ParkingLot(5);
-        Car secondParkedCar = new Car();
-        Car thirdParkedCar = new Car();
-        parkingLotWithSmallerPosRate.park(secondParkedCar);
-        parkingLotWithSmallerPosRate.park(thirdParkedCar);
-
+        ParkingLot parkingLotWithLargerPosRate = buildParkingLotWithThreeCapacityAndOneParkedCar();
+        ParkingLot parkingLotWithSmallerPosRate = buildParkingLotWithFiveCapacityAndTwoParkedCar();
         List<ParkingLot> parkingLots = List.of(parkingLotWithLargerPosRate, parkingLotWithSmallerPosRate);
         SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
         Car car = new Car();

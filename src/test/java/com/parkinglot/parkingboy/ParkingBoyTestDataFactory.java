@@ -24,4 +24,20 @@ public class ParkingBoyTestDataFactory {
 
         return List.of(firstParkingLot, secondParkingLot);
     }
+
+    public static ParkingLot buildParkingLotWithThreeCapacityAndOneParkedCar() {
+        ParkingLot parkingLot = new ParkingLot(3);
+        Car car = new Car();
+        parkingLot.park(car);
+        return parkingLot;
+    }
+
+    public static ParkingLot buildParkingLotWithFiveCapacityAndTwoParkedCar() {
+        ParkingLot parkingLot = new ParkingLot(5);
+        Car firstParkedCar = new Car();
+        Car secondthirdParkedCar = new Car();
+        parkingLot.park(firstParkedCar);
+        parkingLot.park(secondthirdParkedCar);
+        return parkingLot;
+    }
 }
