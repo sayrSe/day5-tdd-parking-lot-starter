@@ -3,8 +3,7 @@ package com.parkinglot.parkingboy;
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
-import com.parkinglot.exception.NoAvailablePositionException;
-import com.parkinglot.exception.UnrecognizedTicketException;
+import com.parkinglot.service.StandardService;
 
 import java.util.List;
 
@@ -17,23 +16,11 @@ public class StandardParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        return parkingLots.stream()
-                .filter(ParkingLot::hasAvailableCapacity)
-                .findFirst()
-                .orElseThrow(NoAvailablePositionException::new)
-                .park(car);
+        return new StandardService().park(car, parkingLots);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return parkingLots.stream()
-                .filter(parkingLot -> isTicketForCarInParkingLot(parkingTicket, parkingLot))
-                .findFirst()
-                .orElseThrow(UnrecognizedTicketException::new)
-                .fetch(parkingTicket);
-    }
-
-    private static boolean isTicketForCarInParkingLot(ParkingTicket parkingTicket, ParkingLot parkingLot) {
-        return parkingLot.getTicketCarMap().containsKey(parkingTicket);
+        return new StandardService().fetch(parkingTicket, parkingLots);
     }
 
     public List<ParkingLot> getParkingLots() {

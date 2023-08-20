@@ -3,9 +3,8 @@ package com.parkinglot.parkingboy;
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
-import com.parkinglot.exception.NoAvailablePositionException;
+import com.parkinglot.service.SmartService;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class SmartParkingBoy extends StandardParkingBoy {
@@ -15,10 +14,6 @@ public class SmartParkingBoy extends StandardParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        return super.getParkingLots().stream()
-                .filter(ParkingLot::hasAvailableCapacity)
-                .max(Comparator.comparing(ParkingLot::getAvailableCapacity))
-                .orElseThrow(NoAvailablePositionException::new)
-                .park(car);
+        return new SmartService().park(car, super.getParkingLots());
     }
 }
