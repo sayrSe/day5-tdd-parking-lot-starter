@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ParkingLotServiceManager {
 
-    private final List<StandardParkingBoy> managedStandardParkingBoys = new ArrayList<>();
+    private final List<StandardParkingBoy> managedParkingBoys = new ArrayList<>();
     private final List<ParkingLot> parkingLots;
 
     public ParkingLotServiceManager(List<ParkingLot> parkingLots) {
@@ -26,12 +26,12 @@ public class ParkingLotServiceManager {
         return new StandardService().fetch(parkingTicket, parkingLots);
     }
 
-    public List<StandardParkingBoy> getManagedStandardParkingBoys() {
-        return managedStandardParkingBoys;
+    public List<StandardParkingBoy> getManagedParkingBoys() {
+        return managedParkingBoys;
     }
 
     public void addToManagement(StandardParkingBoy standardParkingBoy) {
-        managedStandardParkingBoys.add(standardParkingBoy);
+        managedParkingBoys.add(standardParkingBoy);
     }
 
     public ParkingTicket parkWithParkingBoy(StandardParkingBoy standardParkingBoy, Car car) {
@@ -39,7 +39,7 @@ public class ParkingLotServiceManager {
             throw new FailedToDoOperationException();
         }
 
-        return managedStandardParkingBoys.stream()
+        return managedParkingBoys.stream()
                 .filter(standardParkingBoy::equals)
                 .findFirst()
                 .orElseThrow(FailedToDoOperationException::new)
@@ -51,7 +51,7 @@ public class ParkingLotServiceManager {
             throw new FailedToDoOperationException();
         }
 
-        return managedStandardParkingBoys.stream()
+        return managedParkingBoys.stream()
                 .filter(standardParkingBoy::equals)
                 .findFirst()
                 .orElseThrow(FailedToDoOperationException::new)
