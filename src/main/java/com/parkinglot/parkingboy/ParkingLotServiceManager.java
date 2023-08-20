@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ParkingLotServiceManager {
 
-    private final List<StandardParkingBoy> management = new ArrayList<>();
+    private final List<StandardParkingBoy> managedStandardParkingBoys = new ArrayList<>();
     private final List<ParkingLot> parkingLots;
 
     public ParkingLotServiceManager(List<ParkingLot> parkingLots) {
@@ -26,16 +26,20 @@ public class ParkingLotServiceManager {
         return new StandardService().fetch(parkingTicket, parkingLots);
     }
 
-    public List<StandardParkingBoy> getManagement() {
-        return management;
+    public List<StandardParkingBoy> getManagedStandardParkingBoys() {
+        return managedStandardParkingBoys;
     }
 
     public void addToManagement(StandardParkingBoy standardParkingBoy) {
-        management.add(standardParkingBoy);
+        managedStandardParkingBoys.add(standardParkingBoy);
     }
 
     public ParkingTicket parkWithParkingBoy(StandardParkingBoy standardParkingBoy, Car car) {
-        return management.stream()
+        if (isParkingBoyAssignedToAnyManagedParkingLot(standardParkingBoy)) {
+            throw new FailedToDoOperationException();
+        }
+
+        return managedStandardParkingBoys.stream()
                 .filter(standardParkingBoy::equals)
                 .findFirst()
                 .orElseThrow(FailedToDoOperationException::new)
@@ -43,11 +47,15 @@ public class ParkingLotServiceManager {
     }
 
     public Car fetchWithParkingBoy(StandardParkingBoy standardParkingBoy, ParkingTicket parkingTicket) {
-        return management.stream()
+        return managedStandardParkingBoys.stream()
                 .filter(standardParkingBoy::equals)
                 .findFirst()
                 .orElseThrow(FailedToDoOperationException::new)
                 .fetch(parkingTicket);
+    }
+
+    private boolean isParkingBoyAssignedToAnyManagedParkingLot(StandardParkingBoy standardParkingBoy) {
+        return standardParkingBoy.getParkingLots().stream().noneMatch(parkingLots::contains);
     }
 
     public List<ParkingLot> getParkingLots() {

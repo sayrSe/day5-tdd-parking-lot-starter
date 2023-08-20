@@ -3,6 +3,7 @@ package com.parkinglot.parkingboy;
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
+import com.parkinglot.exception.FailedToDoOperationException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,7 +24,7 @@ class ParkingLotServiceManagerTest {
         manager.addToManagement(standardParkingBoy);
 
         // Then
-        assertTrue(manager.getManagement().contains(standardParkingBoy));
+        assertTrue(manager.getManagedStandardParkingBoys().contains(standardParkingBoy));
     }
 
     @Test
@@ -122,5 +123,21 @@ class ParkingLotServiceManagerTest {
         assertNotNull(parkingTicket);
         assertEquals(10, manager.getParkingLots().get(0).getAvailableCapacity());
         assertEquals(9, assignedParkingLot.getAvailableCapacity());
+    }
+
+    @Test
+    void should_return_failedToDoOperationException_when_park_given_parking_lot_service_manager_and_standard_parking_boy_with_different_lot_and_two_parking_lots() {
+        // Given
+        ParkingLotServiceManager manager = new ParkingLotServiceManager(buildTwoEmptyParkingLots());
+        ParkingLot differentParkingLot = new ParkingLot();
+        List<ParkingLot> assignedParkingLots = List.of(differentParkingLot);
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(assignedParkingLots);
+        Car car = new Car();
+        manager.addToManagement(standardParkingBoy);
+
+        // When
+        FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
+                manager.parkWithParkingBoy(standardParkingBoy, car));
+        assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
     }
 }
