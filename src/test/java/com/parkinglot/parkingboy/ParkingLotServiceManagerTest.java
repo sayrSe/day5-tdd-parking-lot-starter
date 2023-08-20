@@ -44,7 +44,7 @@ class ParkingLotServiceManagerTest {
         assertEquals(9, assignedParkingLots.get(0).getAvailableCapacity());
         assertEquals(10, assignedParkingLots.get(1).getAvailableCapacity());
     }
-    
+
     @Test
     void should_return_right_car_when_fetch_with_parking_boy_given_parking_lot_service_manager_and_a_standard_parking_boy_and_two_parking_lots_both_have_parked_car_and_parking_ticket() {
     	// Given
@@ -138,6 +138,23 @@ class ParkingLotServiceManagerTest {
         // When
         FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
                 manager.parkWithParkingBoy(standardParkingBoy, car));
+        assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
+    }
+
+    @Test
+    void should_return_failedToDoOperationException_when_fetch_with_parking_boy_given_parking_lot_service_manager_and_standard_parking_boy_with_different_lot_and_two_parking_lots_with_one_parked_car() {
+        // Given
+        ParkingLotServiceManager manager = new ParkingLotServiceManager(buildTwoEmptyParkingLots());
+        Car parkedCar = new Car();
+        ParkingTicket parkingTicket = manager.park(parkedCar);
+        ParkingLot differentParkingLot = new ParkingLot();
+        List<ParkingLot> assignedParkingLots = List.of(differentParkingLot);
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(assignedParkingLots);
+        manager.addToManagement(standardParkingBoy);
+
+        // When
+        FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
+                manager.fetchWithParkingBoy(standardParkingBoy, parkingTicket));
         assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
     }
 }

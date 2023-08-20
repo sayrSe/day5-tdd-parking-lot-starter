@@ -47,6 +47,10 @@ public class ParkingLotServiceManager {
     }
 
     public Car fetchWithParkingBoy(StandardParkingBoy standardParkingBoy, ParkingTicket parkingTicket) {
+        if (isParkingBoyAssignedToAnyManagedParkingLot(standardParkingBoy)) {
+            throw new FailedToDoOperationException();
+        }
+
         return managedStandardParkingBoys.stream()
                 .filter(standardParkingBoy::equals)
                 .findFirst()
