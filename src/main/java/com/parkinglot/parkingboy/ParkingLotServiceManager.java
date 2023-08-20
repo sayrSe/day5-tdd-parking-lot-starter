@@ -49,4 +49,8 @@ public class ParkingLotServiceManager {
                 .orElseThrow()
                 .fetch(parkingTicket);
     }
+
+    public List<ParkingLot> getParkingLots() {
+        return parkingLots;
+    }
 }
