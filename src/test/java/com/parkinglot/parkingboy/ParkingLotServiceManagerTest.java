@@ -47,7 +47,7 @@ class ParkingLotServiceManagerTest {
 
     @Test
     void should_return_right_car_when_fetch_with_parking_boy_given_parking_lot_service_manager_and_a_standard_parking_boy_and_two_parking_lots_both_have_parked_car_and_parking_ticket() {
-    	// Given
+        // Given
         ParkingLot firstParkingLot = new ParkingLot();
         Car firstParkedCar = new Car();
         ParkingTicket firstParkingTicket = firstParkingLot.park(firstParkedCar);
@@ -60,7 +60,7 @@ class ParkingLotServiceManagerTest {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
         manager.addToManagement(standardParkingBoy);
 
-    	// When
+        // When
         Car firstFetchedCar = manager.fetchWithParkingBoy(standardParkingBoy, firstParkingTicket);
         Car secondFetchedCar = manager.fetchWithParkingBoy(standardParkingBoy, secondParkingTicket);
 
