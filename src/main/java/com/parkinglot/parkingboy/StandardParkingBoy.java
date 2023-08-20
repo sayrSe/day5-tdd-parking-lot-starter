@@ -5,7 +5,6 @@ import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
 import com.parkinglot.service.StandardService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StandardParkingBoy {
