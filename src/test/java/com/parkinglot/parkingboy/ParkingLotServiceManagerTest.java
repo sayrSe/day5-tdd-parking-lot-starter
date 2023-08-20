@@ -67,4 +67,20 @@ class ParkingLotServiceManagerTest {
         assertEquals(firstParkedCar, firstFetchedCar);
         assertEquals(secondParkedCar, secondFetchedCar);
     }
+
+    @Test
+    void should_park_to_first_parking_lot_when_park_given_a_parking_lot_service_manager_and_two_parking_lots_and_a_car() {
+        // Given
+        List<ParkingLot> parkingLots = buildTwoEmptyParkingLots();
+        ParkingLotServiceManager manager = new ParkingLotServiceManager(parkingLots);
+        Car car = new Car();
+
+        // When
+        ParkingTicket parkingTicket = manager.park(car);
+
+        // Then
+        assertNotNull(parkingTicket);
+        assertEquals(9, parkingLots.get(0).getAvailableCapacity());
+        assertEquals(10, parkingLots.get(1).getAvailableCapacity());
+    }
 }
