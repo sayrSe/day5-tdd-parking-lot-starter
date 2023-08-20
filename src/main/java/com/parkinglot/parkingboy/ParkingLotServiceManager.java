@@ -3,6 +3,7 @@ package com.parkinglot.parkingboy;
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
+import com.parkinglot.exception.FailedToDoOperationException;
 import com.parkinglot.service.StandardService;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ParkingLotServiceManager {
         return management.stream()
                 .filter(standardParkingBoy::equals)
                 .findFirst()
-                .orElseThrow()
+                .orElseThrow(FailedToDoOperationException::new)
                 .park(car);
     }
 
@@ -45,7 +46,7 @@ public class ParkingLotServiceManager {
         return management.stream()
                 .filter(standardParkingBoy::equals)
                 .findFirst()
-                .orElseThrow()
+                .orElseThrow(FailedToDoOperationException::new)
                 .fetch(parkingTicket);
     }
 
