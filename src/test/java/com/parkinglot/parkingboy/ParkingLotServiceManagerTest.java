@@ -24,7 +24,7 @@ class ParkingLotServiceManagerTest {
         manager.addToManagement(standardParkingBoy);
 
         // Then
-        assertTrue(manager.getManagedStandardParkingBoys().contains(standardParkingBoy));
+        assertTrue(manager.getManagedParkingBoys().contains(standardParkingBoy));
     }
 
     @Test
