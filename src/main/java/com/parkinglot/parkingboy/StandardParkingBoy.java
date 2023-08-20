@@ -5,11 +5,16 @@ import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
 import com.parkinglot.service.StandardService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StandardParkingBoy {
 
     private final List<ParkingLot> parkingLots;
+
+    public StandardParkingBoy() {
+        parkingLots = new ArrayList<>();
+    }
 
     public StandardParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
