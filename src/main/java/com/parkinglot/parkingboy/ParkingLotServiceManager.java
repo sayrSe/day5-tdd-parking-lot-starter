@@ -30,7 +30,6 @@ public class ParkingLotServiceManager {
     }
 
     public void addToManagement(StandardParkingBoy standardParkingBoy) {
-        standardParkingBoy.getParkingLots().addAll(parkingLots);
         management.add(standardParkingBoy);
     }
 

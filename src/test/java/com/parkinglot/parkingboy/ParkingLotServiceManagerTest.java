@@ -16,7 +16,8 @@ class ParkingLotServiceManagerTest {
     void should_add_parking_boy_to_management_when_add_to_management_given_parking_lot_service_manager_and_standard_parking_boy_and_two_parking_lots() {
         // Given
         ParkingLotServiceManager manager = new ParkingLotServiceManager(buildTwoEmptyParkingLots());
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        List<ParkingLot> assignedParkingLots = List.of(manager.getParkingLots().get(0));
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(assignedParkingLots);
 
         // When
         manager.addToManagement(standardParkingBoy);
@@ -29,17 +30,17 @@ class ParkingLotServiceManagerTest {
     void should_park_to_first_parking_lot_when_park_with_parking_boy_given_parking_lot_service_manager_and_standard_parking_boy_in_management_and_two_parking_lots_and_car() {
         // Given
         ParkingLotServiceManager manager = new ParkingLotServiceManager(buildTwoEmptyParkingLots());
-        List<ParkingLot> managerParkingLots = manager.getParkingLots();
-        StandardParkingBoy smartParkingBoy = new StandardParkingBoy();
+        List<ParkingLot> assignedParkingLots = manager.getParkingLots();
         Car car = new Car();
-        manager.addToManagement(smartParkingBoy);
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(assignedParkingLots);
+        manager.addToManagement(standardParkingBoy);
 
         // When
-        ParkingTicket parkingTicket = manager.parkWithParkingBoy(smartParkingBoy, car);
+        ParkingTicket parkingTicket = manager.parkWithParkingBoy(standardParkingBoy, car);
 
         // Then
         assertNotNull(parkingTicket);
-        assertEquals(9, managerParkingLots.get(0).getAvailableCapacity());
-        assertEquals(10, managerParkingLots.get(1).getAvailableCapacity());
+        assertEquals(9, assignedParkingLots.get(0).getAvailableCapacity());
+        assertEquals(10, assignedParkingLots.get(1).getAvailableCapacity());
     }
 }
