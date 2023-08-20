@@ -1,4 +1,4 @@
-package com.parkinglot.parkingboy;
+package com.parkinglot.members;
 
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.parkinglot.parkingboy.ParkingBoyTestDataFactory.buildTwoEmptyParkingLots;
+import static com.parkinglot.members.ParkingBoyTestDataFactory.buildTwoEmptyParkingLots;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingLotServiceManagerTest {

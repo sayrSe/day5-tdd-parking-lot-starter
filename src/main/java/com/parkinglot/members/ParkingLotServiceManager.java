@@ -1,4 +1,4 @@
-package com.parkinglot.parkingboy;
+package com.parkinglot.members;
 
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
