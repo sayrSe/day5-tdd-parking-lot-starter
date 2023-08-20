@@ -12,10 +12,6 @@ public class StandardParkingBoy {
 
     private final List<ParkingLot> parkingLots;
 
-    public StandardParkingBoy() {
-        parkingLots = new ArrayList<>();
-    }
-
     public StandardParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
