@@ -43,4 +43,28 @@ class ParkingLotServiceManagerTest {
         assertEquals(9, assignedParkingLots.get(0).getAvailableCapacity());
         assertEquals(10, assignedParkingLots.get(1).getAvailableCapacity());
     }
+    
+    @Test
+    void should_return_right_car_when_fetch_with_parking_boy_given_parking_lot_service_manager_and_a_standard_parking_boy_and_two_parking_lots_both_have_parked_car_and_parking_ticket() {
+    	// Given
+        ParkingLot firstParkingLot = new ParkingLot();
+        Car firstParkedCar = new Car();
+        ParkingTicket firstParkingTicket = firstParkingLot.park(firstParkedCar);
+        ParkingLot secondParkingLot = new ParkingLot();
+        Car secondParkedCar = new Car();
+        ParkingTicket secondParkingTicket = secondParkingLot.park(secondParkedCar);
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+
+        ParkingLotServiceManager manager = new ParkingLotServiceManager(parkingLots);
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        manager.addToManagement(standardParkingBoy);
+
+    	// When
+        Car firstFetchedCar = manager.fetchWithParkingBoy(standardParkingBoy, firstParkingTicket);
+        Car secondFetchedCar = manager.fetchWithParkingBoy(standardParkingBoy, secondParkingTicket);
+
+        // Then
+        assertEquals(firstParkedCar, firstFetchedCar);
+        assertEquals(secondParkedCar, secondFetchedCar);
+    }
 }
