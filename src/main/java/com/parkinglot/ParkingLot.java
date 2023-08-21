@@ -49,11 +49,11 @@ public class ParkingLot {
         return !isFull();
     }
 
-    public Map<ParkingTicket, Car> getTicketCarMap() {
-        return ticketCarMap;
-    }
-
     public float getAvailablePositionRate() {
         return (float) getAvailableCapacity() / capacity;
+    }
+
+    public boolean isTicketForCarInParkingLot(ParkingTicket parkingTicket) {
+        return this.ticketCarMap.containsKey(parkingTicket);
     }
 }

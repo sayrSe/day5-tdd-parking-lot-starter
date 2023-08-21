@@ -4,7 +4,8 @@ import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
 import com.parkinglot.exception.FailedToDoOperationException;
-import com.parkinglot.service.StandardService;
+import com.parkinglot.exception.UnrecognizedTicketException;
+import com.parkinglot.service.StandardParking;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,16 @@ public class ParkingLotServiceManager {
     }
 
     public ParkingTicket park(Car car) {
-        return new StandardService().park(car, parkingLots);
+        return new StandardParking().park(car, parkingLots);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return new StandardService().fetch(parkingTicket, parkingLots);
+        return parkingLots.stream()
+                .filter(parkingLot -> parkingLot.isTicketForCarInParkingLot(parkingTicket))
+                .findFirst()
+                .orElseThrow(UnrecognizedTicketException::new)
+                .fetch(parkingTicket);
+
     }
 
     public List<StandardParkingBoy> getManagedParkingBoys() {

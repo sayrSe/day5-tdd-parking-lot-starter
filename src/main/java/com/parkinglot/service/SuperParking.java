@@ -8,19 +8,14 @@ import com.parkinglot.exception.NoAvailablePositionException;
 import java.util.Comparator;
 import java.util.List;
 
-public class SmartService implements ServiceStrategy {
+public class SuperParking implements ParkingStrategy {
 
     @Override
     public ParkingTicket park(Car car, List<ParkingLot> parkingLots) {
         return parkingLots.stream()
                 .filter(ParkingLot::hasAvailableCapacity)
-                .max(Comparator.comparing(ParkingLot::getAvailableCapacity))
+                .max(Comparator.comparing(ParkingLot::getAvailablePositionRate))
                 .orElseThrow(NoAvailablePositionException::new)
                 .park(car);
-    }
-
-    @Override
-    public Car fetch(ParkingTicket parkingTicket, List<ParkingLot> parkingLots) {
-        return null;
     }
 }

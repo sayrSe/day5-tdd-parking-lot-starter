@@ -3,27 +3,19 @@ package com.parkinglot.members;
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
-import com.parkinglot.service.StandardService;
+import com.parkinglot.service.StandardParking;
 
 import java.util.List;
 
-public class StandardParkingBoy {
+public class StandardParkingBoy extends ParkingBoy {
 
-    private final List<ParkingLot> parkingLots;
+    private final StandardParking standardService = new StandardParking();
 
     public StandardParkingBoy(List<ParkingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+        super(parkingLots);
     }
 
     public ParkingTicket park(Car car) {
-        return new StandardService().park(car, parkingLots);
-    }
-
-    public Car fetch(ParkingTicket parkingTicket) {
-        return new StandardService().fetch(parkingTicket, parkingLots);
-    }
-
-    public List<ParkingLot> getParkingLots() {
-        return parkingLots;
+        return standardService.park(car, super.getParkingLots());
     }
 }

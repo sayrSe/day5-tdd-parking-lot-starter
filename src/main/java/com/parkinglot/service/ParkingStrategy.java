@@ -6,9 +6,7 @@ import com.parkinglot.ParkingTicket;
 
 import java.util.List;
 
-public interface ServiceStrategy {
+public interface ParkingStrategy {
 
     ParkingTicket park(Car car, List<ParkingLot> parkingLots);
-
-    Car fetch(ParkingTicket parkingTicket, List<ParkingLot> parkingLots);
 }
