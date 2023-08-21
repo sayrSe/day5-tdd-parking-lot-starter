@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SuperParkingBoyTest {
 
     @Test
-    void should_park_to_parking_lot_with_more_parking_space_when_park_given_a_super_parking_boy_and_two_parking_lots_with_one_have_larger_available_position_rate() {
+    void should_park_to_parking_lot_with_more_available_position_rate_when_park_given_a_super_parking_boy_and_two_parking_lots_with_one_have_larger_available_position_rate() {
         // Given
         ParkingLot parkingLotWithLargerPosRate = buildParkingLotWithThreeCapacityAndOneParkedCar();
         ParkingLot parkingLotWithSmallerPosRate = buildParkingLotWithFiveCapacityAndTwoParkedCar();
