@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ParkingLotServiceManager {
 
-    private final List<StandardParkingBoy> managedParkingBoys = new ArrayList<>();
+    private final List<ParkingBoy> managedParkingBoys = new ArrayList<>();
     private final List<ParkingLot> parkingLots;
 
     public ParkingLotServiceManager(List<ParkingLot> parkingLots) {
@@ -32,40 +32,40 @@ public class ParkingLotServiceManager {
 
     }
 
-    public List<StandardParkingBoy> getManagedParkingBoys() {
+    public List<ParkingBoy> getManagedParkingBoys() {
         return managedParkingBoys;
     }
 
-    public void addToManagement(StandardParkingBoy standardParkingBoy) {
-        managedParkingBoys.add(standardParkingBoy);
+    public void addToManagement(ParkingBoy parkingBoy) {
+        managedParkingBoys.add(parkingBoy);
     }
 
-    public ParkingTicket parkWithParkingBoy(StandardParkingBoy standardParkingBoy, Car car) {
-        if (isParkingBoyAssignedToAnyManagedParkingLot(standardParkingBoy)) {
+    public ParkingTicket parkWithParkingBoy(ParkingBoy parkingBoy, Car car) {
+        if (isParkingBoyAssignedToAnyManagedParkingLot(parkingBoy)) {
             throw new FailedToDoOperationException();
         }
 
         return managedParkingBoys.stream()
-                .filter(standardParkingBoy::equals)
+                .filter(parkingBoy::equals)
                 .findFirst()
                 .orElseThrow(FailedToDoOperationException::new)
                 .park(car);
     }
 
-    public Car fetchWithParkingBoy(StandardParkingBoy standardParkingBoy, ParkingTicket parkingTicket) {
-        if (isParkingBoyAssignedToAnyManagedParkingLot(standardParkingBoy)) {
+    public Car fetchWithParkingBoy(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
+        if (isParkingBoyAssignedToAnyManagedParkingLot(parkingBoy)) {
             throw new FailedToDoOperationException();
         }
 
         return managedParkingBoys.stream()
-                .filter(standardParkingBoy::equals)
+                .filter(parkingBoy::equals)
                 .findFirst()
                 .orElseThrow(FailedToDoOperationException::new)
                 .fetch(parkingTicket);
     }
 
-    private boolean isParkingBoyAssignedToAnyManagedParkingLot(StandardParkingBoy standardParkingBoy) {
-        return standardParkingBoy.getParkingLots().stream().noneMatch(parkingLots::contains);
+    private boolean isParkingBoyAssignedToAnyManagedParkingLot(ParkingBoy parkingBoy) {
+        return parkingBoy.getParkingLots().stream().noneMatch(parkingLots::contains);
     }
 
     public List<ParkingLot> getParkingLots() {
