@@ -56,4 +56,8 @@ public class ParkingLot {
     public boolean isTicketForCarInParkingLot(ParkingTicket parkingTicket) {
         return this.ticketCarMap.containsKey(parkingTicket);
     }
+
+    public boolean isCarInParkingLot(Car car) {
+        return this.ticketCarMap.containsValue(car);
+    }
 }

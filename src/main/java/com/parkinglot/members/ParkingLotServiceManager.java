@@ -40,32 +40,35 @@ public class ParkingLotServiceManager {
         managedParkingBoys.add(parkingBoy);
     }
 
-    public ParkingTicket parkWithParkingBoy(ParkingBoy parkingBoy, Car car) {
-        if (isParkingBoyAssignedToAnyManagedParkingLot(parkingBoy)) {
-            throw new FailedToDoOperationException();
-        }
-
+    public ParkingTicket parkWithParkingBoy(Car car) {
         return managedParkingBoys.stream()
-                .filter(parkingBoy::equals)
+                .filter(this::isParkingBoyAssignedToAnyManagedParkingLot)
+                .filter(ParkingLotServiceManager::isParkingBoyHasAvailableParkingLot)
                 .findFirst()
                 .orElseThrow(FailedToDoOperationException::new)
                 .park(car);
     }
 
-    public Car fetchWithParkingBoy(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
-        if (isParkingBoyAssignedToAnyManagedParkingLot(parkingBoy)) {
-            throw new FailedToDoOperationException();
-        }
+    private static boolean isParkingBoyHasAvailableParkingLot(ParkingBoy managedParkingBoy) {
+        return managedParkingBoy.getParkingLots().stream().anyMatch(ParkingLot::hasAvailableCapacity);
+    }
 
+    public Car fetchWithParkingBoy(ParkingTicket parkingTicket) {
         return managedParkingBoys.stream()
-                .filter(parkingBoy::equals)
+                .filter(this::isParkingBoyAssignedToAnyManagedParkingLot)
+                .filter(parkingBoy -> isTicketInParkingLotOfParkingBoy(parkingTicket, parkingBoy))
                 .findFirst()
                 .orElseThrow(FailedToDoOperationException::new)
                 .fetch(parkingTicket);
     }
 
+    private static boolean isTicketInParkingLotOfParkingBoy(ParkingTicket parkingTicket, ParkingBoy parkingBoy) {
+        return parkingBoy.getParkingLots().stream()
+                .anyMatch(parkingLot -> parkingLot.isTicketForCarInParkingLot(parkingTicket));
+    }
+
     private boolean isParkingBoyAssignedToAnyManagedParkingLot(ParkingBoy parkingBoy) {
-        return parkingBoy.getParkingLots().stream().noneMatch(parkingLots::contains);
+        return parkingBoy.getParkingLots().stream().anyMatch(parkingLots::contains);
     }
 
     public List<ParkingLot> getParkingLots() {

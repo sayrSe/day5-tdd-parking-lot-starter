@@ -37,7 +37,7 @@ class ParkingLotServiceManagerTest {
         manager.addToManagement(standardParkingBoy);
 
         // When
-        ParkingTicket parkingTicket = manager.parkWithParkingBoy(standardParkingBoy, car);
+        ParkingTicket parkingTicket = manager.parkWithParkingBoy(car);
 
         // Then
         assertNotNull(parkingTicket);
@@ -61,8 +61,8 @@ class ParkingLotServiceManagerTest {
         manager.addToManagement(standardParkingBoy);
 
         // When
-        Car firstFetchedCar = manager.fetchWithParkingBoy(standardParkingBoy, firstParkingTicket);
-        Car secondFetchedCar = manager.fetchWithParkingBoy(standardParkingBoy, secondParkingTicket);
+        Car firstFetchedCar = manager.fetchWithParkingBoy(firstParkingTicket);
+        Car secondFetchedCar = manager.fetchWithParkingBoy(secondParkingTicket);
 
         // Then
         assertEquals(firstParkedCar, firstFetchedCar);
@@ -117,7 +117,7 @@ class ParkingLotServiceManagerTest {
         manager.addToManagement(standardParkingBoy);
 
         // When
-        ParkingTicket parkingTicket = manager.parkWithParkingBoy(standardParkingBoy, car);
+        ParkingTicket parkingTicket = manager.parkWithParkingBoy(car);
 
         // Then
         assertNotNull(parkingTicket);
@@ -137,7 +137,7 @@ class ParkingLotServiceManagerTest {
 
         // When
         FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
-                manager.parkWithParkingBoy(standardParkingBoy, car));
+                manager.parkWithParkingBoy(car));
         assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
     }
 
@@ -154,7 +154,7 @@ class ParkingLotServiceManagerTest {
 
         // When
         FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
-                manager.fetchWithParkingBoy(standardParkingBoy, parkingTicket));
+                manager.fetchWithParkingBoy(parkingTicket));
         assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
     }
 
@@ -162,13 +162,11 @@ class ParkingLotServiceManagerTest {
     void should_return_failedToDoOperationException_when_park_with_parking_boy_given_parking_lot_service_manager_and_unmanaged_standard_parking_boy_with_different_lot_and_two_parking_lots() {
         // Given
         ParkingLotServiceManager manager = new ParkingLotServiceManager(buildTwoEmptyParkingLots());
-        List<ParkingLot> assignedParkingLots = List.of();
-        StandardParkingBoy unmanagedStandardParkingBoy = new StandardParkingBoy(assignedParkingLots);
         Car car = new Car();
 
         // When
         FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
-                manager.parkWithParkingBoy(unmanagedStandardParkingBoy, car));
+                manager.parkWithParkingBoy(car));
         assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
     }
 
@@ -176,14 +174,12 @@ class ParkingLotServiceManagerTest {
     void should_return_failedToDoOperationException_when_fetch_with_parking_boy_given_parking_lot_service_manager_and_unmanaged_standard_parking_boy_with_different_lot_and_two_parking_lots_with_one_parked_car() {
         // Given
         ParkingLotServiceManager manager = new ParkingLotServiceManager(buildTwoEmptyParkingLots());
-        List<ParkingLot> assignedParkingLots = List.of();
-        StandardParkingBoy unmanagedStandardParkingBoy = new StandardParkingBoy(assignedParkingLots);
         Car car = new Car();
         ParkingTicket parkingTicket = manager.park(car);
 
         // When
         FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
-                manager.fetchWithParkingBoy(unmanagedStandardParkingBoy, parkingTicket));
+                manager.fetchWithParkingBoy(parkingTicket));
         assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
     }
 }
