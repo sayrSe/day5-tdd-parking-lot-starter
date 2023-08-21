@@ -1,9 +1,6 @@
 package com.parkinglot.members;
 
-import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
-import com.parkinglot.ParkingTicket;
-import com.parkinglot.service.StandardParking;
 
 import java.util.List;
 
