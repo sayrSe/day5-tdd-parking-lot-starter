@@ -3,7 +3,8 @@ package com.parkinglot.members;
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
-import com.parkinglot.exception.FailedToDoOperationException;
+import com.parkinglot.exception.NoAvailablePositionException;
+import com.parkinglot.exception.UnrecognizedTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,6 +13,9 @@ import static com.parkinglot.members.ParkingBoyTestDataFactory.buildTwoEmptyPark
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingLotServiceManagerTest {
+
+    public static final String NO_AVAILABLE_POSITION = "No available position.";
+    public static final String UNRECOGNIZED_PARKING_TICKET = "Unrecognized parking ticket.";
 
     @Test
     void should_add_parking_boy_to_management_when_add_to_management_given_parking_lot_service_manager_and_standard_parking_boy_and_two_parking_lots() {
@@ -136,9 +140,9 @@ class ParkingLotServiceManagerTest {
         manager.addToManagement(standardParkingBoy);
 
         // When
-        FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
+        NoAvailablePositionException failedToDoOperationException = assertThrows(NoAvailablePositionException.class, () ->
                 manager.parkWithParkingBoy(car));
-        assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
+        assertEquals(NO_AVAILABLE_POSITION, failedToDoOperationException.getMessage());
     }
 
     @Test
@@ -153,9 +157,9 @@ class ParkingLotServiceManagerTest {
         manager.addToManagement(standardParkingBoy);
 
         // When
-        FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
+        UnrecognizedTicketException failedToDoOperationException = assertThrows(UnrecognizedTicketException.class, () ->
                 manager.fetchWithParkingBoy(parkingTicket));
-        assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
+        assertEquals(UNRECOGNIZED_PARKING_TICKET, failedToDoOperationException.getMessage());
     }
 
     @Test
@@ -165,9 +169,9 @@ class ParkingLotServiceManagerTest {
         Car car = new Car();
 
         // When
-        FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
+        NoAvailablePositionException failedToDoOperationException = assertThrows(NoAvailablePositionException.class, () ->
                 manager.parkWithParkingBoy(car));
-        assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
+        assertEquals(NO_AVAILABLE_POSITION, failedToDoOperationException.getMessage());
     }
 
     @Test
@@ -178,8 +182,8 @@ class ParkingLotServiceManagerTest {
         ParkingTicket parkingTicket = manager.park(car);
 
         // When
-        FailedToDoOperationException failedToDoOperationException = assertThrows(FailedToDoOperationException.class, () ->
+        UnrecognizedTicketException failedToDoOperationException = assertThrows(UnrecognizedTicketException.class, () ->
                 manager.fetchWithParkingBoy(parkingTicket));
-        assertEquals("Failed to do the operation.", failedToDoOperationException.getMessage());
+        assertEquals(UNRECOGNIZED_PARKING_TICKET, failedToDoOperationException.getMessage());
     }
 }

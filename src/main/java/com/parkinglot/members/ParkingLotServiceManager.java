@@ -3,7 +3,7 @@ package com.parkinglot.members;
 import com.parkinglot.Car;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.ParkingTicket;
-import com.parkinglot.exception.FailedToDoOperationException;
+import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedTicketException;
 import com.parkinglot.service.StandardParking;
 
@@ -45,7 +45,7 @@ public class ParkingLotServiceManager {
                 .filter(this::isParkingBoyAssignedToAnyManagedParkingLot)
                 .filter(ParkingLotServiceManager::isParkingBoyHasAvailableParkingLot)
                 .findFirst()
-                .orElseThrow(FailedToDoOperationException::new)
+                .orElseThrow(NoAvailablePositionException::new)
                 .park(car);
     }
 
@@ -58,7 +58,7 @@ public class ParkingLotServiceManager {
                 .filter(this::isParkingBoyAssignedToAnyManagedParkingLot)
                 .filter(parkingBoy -> isTicketInParkingLotOfParkingBoy(parkingTicket, parkingBoy))
                 .findFirst()
-                .orElseThrow(FailedToDoOperationException::new)
+                .orElseThrow(UnrecognizedTicketException::new)
                 .fetch(parkingTicket);
     }
 
