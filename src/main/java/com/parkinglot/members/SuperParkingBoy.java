@@ -9,13 +9,12 @@ import java.util.List;
 
 public class SuperParkingBoy extends ParkingBoy {
 
-    private final SuperParking superParking = new SuperParking();
-
     public SuperParkingBoy(List<ParkingLot> parkingLots) {
         super(parkingLots);
+        setParkingStrategy(new SuperParking());
     }
 
     public ParkingTicket park(Car car) {
-        return superParking.park(car, super.getParkingLots());
+        return getParkingStrategy().park(car, super.getParkingLots());
     }
 }
